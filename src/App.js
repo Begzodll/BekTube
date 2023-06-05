@@ -9,7 +9,8 @@ import {youtubeLibraryLoaded} from './store/actions/api';
 import Trending from './containers/Trending/Trending';
 import Search from './containers/Search/Search';
 
-const API_KEY = process.env.REACT_APP_YT_API_KEY;
+// const API_KEY = process.env.REACT_APP_YT_API_KEY;
+const API_KEY = 'AIzaSyC4mv21Kn4EmBIOUakfhesoKuwqoFWiae4';
 
 class App extends Component {
   render() {
