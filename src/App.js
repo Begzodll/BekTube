@@ -12,18 +12,44 @@ import Search from './containers/Search/Search';
 // const API_KEY = process.env.REACT_APP_YT_API_KEY;
 const API_KEY = 'AIzaSyC4mv21Kn4EmBIOUakfhesoKuwqoFWiae4';
 
-class App extends Component {
-  render() {
-    return (
-      <AppLayout>
-        <Switch>
-          <Route path="/feed/trending" component={Trending}/>
-          <Route path="/results" render={() => <Search key={this.props.location.key}/>}/>
-          <Route path="/watch" render={() => <Watch key={this.props.location.key}/>}/>
-          <Route path="/" component={Home}/>
-        </Switch>
-      </AppLayout>
-    );
+class App extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      windowWidth: window.innerWidth
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    this.setState({ windowWidth: window.innerWidth });
+  };
+
+    render() {
+    const { windowWidth } = this.state;
+    if(windowWidth > 500){
+      return (
+        <AppLayout>
+          <Switch>
+            <Route path="/feed/trending" component={Trending}/>
+            <Route path="/results" render={() => <Search key={this.props.location.key}/>}/>
+            <Route path="/watch" render={() => <Watch key={this.props.location.key}/>}/>
+            <Route path="/" component={Home}/>
+          </Switch>
+        </AppLayout>
+      );
+    } else {
+      return(
+        <h1>This website supported only pc and tablet</h1>
+      )
+    }
   }
   componentDidMount() {
     this.loadYoutubeApi();
